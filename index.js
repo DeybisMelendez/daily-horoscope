@@ -36,12 +36,11 @@ function getHoroscope(sign) {
     })
         .then(response => response.json())
         .then(json => {
-            console.log(json)
             let section = document.getElementById(sign)
             section.innerHTML = `
                 <h2>${capitalize(sign)}</h2>
                 <img src="${IMG[sign]}">
-                <p>${json.date_range}</p>
+                <span class = "date">${json.date_range}</span>
                 <p class = "description">${json.description}</p>
                 <table>
                     <tr>
