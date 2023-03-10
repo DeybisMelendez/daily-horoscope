@@ -1,9 +1,7 @@
-# Horóscopo
+# Daily Horoscope
 
-Una sencilla pagina web que te da el horóscopo del día todos los días. Está creada desde cero utilizando solo html5, css y javascript.
+A simple web page that gives you the horoscope of the day every day. It is created from scratch using only html5, css and javascript with [Aztro](https://aztro.readthedocs.io/en/latest/) API.
 
-Consume la api [Aztro](https://aztro.readthedocs.io/en/latest/) por medio de la función fetch.
-
-Puedes ver la página aquí: https://deybismelendez.github.io/horoscopo/
+[Click here to see the page](https://deybismelendez.github.io/daily-horoscope)
 
 ![Screenshot](https://i.postimg.cc/cCzzMCwc/Captura-de-pantalla-2023-03-10-07-35-36.png)
