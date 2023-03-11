@@ -17,16 +17,20 @@ const IMG = {
 }
 const QUERY_STRING = window.location.search
 const URL_PARAMS = new URLSearchParams(QUERY_STRING)
-const BUTTON_TOMORROW = document.getElementById("tomorrow")
-const BUTTON_TODAY = document.getElementById("today")
-const BUTTON_YESTERDAY = document.getElementById("yesterday")
+const BUTTON_TOMORROW = document.querySelector("#tomorrow")
+const BUTTON_TODAY = document.querySelector("#today")
+const BUTTON_YESTERDAY = document.querySelector("#yesterday")
+const TEMPLATE_SECTION = document.querySelector("#template")
+const ELEMENTS_ID = ["#title", "#date", "#img", "#description", "#color", "#lucky_time", "#lucky_number", "#mood"]
 
 let day = URL_PARAMS.get("day") || "today"
 
 function createSections(sign) {
-    let section = document.createElement("section")
+    let template = TEMPLATE_SECTION.content.cloneNode(true)
+    let section = template.children[0]
     section.id = sign
-    document.getElementById("content").appendChild(section)
+    ELEMENTS_ID.forEach(element => section.querySelector(element).id += sign)
+    document.querySelector("#content").appendChild(template)
 }
 
 function getHoroscope(sign) {
@@ -36,42 +40,16 @@ function getHoroscope(sign) {
     })
         .then(response => response.json())
         .then(json => {
-            let section = document.getElementById(sign)
-            section.innerHTML = `
-                <h2>${capitalize(sign)}</h2>
-                <img src="${IMG[sign]}">
-                <span class = "date">${json.date_range}</span>
-                <p class = "description">${json.description}</p>
-                <table>
-                    <tr>
-                        <th>Color</th>
-                        <th>Lucky Number</th>
-                        <th>Lucky Time</th>
-                        <th>Mood</th>
-                    </tr>
-                    <tr>
-                        <td>${json.color}</td>
-                        <td>${json.lucky_number}</td>
-                        <td>${json.lucky_time}</td>
-                        <td>${json.mood}</td>
-                    </tr>
-                </table>`
+            document.querySelector("#title" + sign).innerHTML = capitalize(sign)
+            document.querySelector("#img" + sign).src = IMG[sign]
+            document.querySelector("#date" + sign).innerHTML = json.date_range
+            document.querySelector("#description" + sign).innerHTML = json.description
+            document.querySelector("#color" + sign).innerHTML = json.color
+            document.querySelector("#lucky_number" + sign).innerHTML = json.lucky_number
+            document.querySelector("#lucky_time" + sign).innerHTML = json.lucky_time
+            document.querySelector("#mood" + sign).innerHTML = json.mood
         })
 }
-switch (day) {
-    case "tomorrow":
-        BUTTON_TOMORROW.disabled = true
-        break
-    case "today":
-        BUTTON_TODAY.disabled = true
-        break
-    case "yesterday":
-        BUTTON_YESTERDAY.disabled = true
-        break
-}
-
-SIGNS.forEach(sign => { createSections(sign); getHoroscope(sign) })
-
 
 // Button handler
 
@@ -91,3 +69,24 @@ BUTTON_YESTERDAY.onclick = function () {
 function capitalize(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
+
+
+function init() {
+    switch (day) {
+        case "tomorrow":
+            BUTTON_TOMORROW.disabled = true
+            break
+        case "today":
+            BUTTON_TODAY.disabled = true
+            break
+        case "yesterday":
+            BUTTON_YESTERDAY.disabled = true
+            break
+        default:
+            window.location.href = "/"
+    }
+
+    SIGNS.forEach(sign => { createSections(sign); getHoroscope(sign) })
+}
+
+init()

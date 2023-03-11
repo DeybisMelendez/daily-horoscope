@@ -19,7 +19,30 @@
             <button id="tomorrow">Tomorrow</button>
         </div>
     </div>
-    <div id="content" class="grid"></div>
+    <div id="content" class="grid">
+        <template id="template">
+            <section id="sign">
+                <h2 id="title"></h2>
+                <img id="img">
+                <span class="date" id="date"></span>
+                <p id="description" class="description"></p>
+                <table>
+                    <tr>
+                        <th>Color</th>
+                        <th>Lucky Number</th>
+                        <th>Lucky Time</th>
+                        <th>Mood</th>
+                    </tr>
+                    <tr>
+                        <td id="color"></td>
+                        <td id="lucky_number"></td>
+                        <td id="lucky_time"></td>
+                        <td id="mood"></td>
+                    </tr>
+                </table>
+            </section>
+        </template>
+    </div>
     <script src="index.js"></script>
 </body>
 
